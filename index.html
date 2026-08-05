@@ -1,5 +1,5 @@
 <title>Blank — Download</title>
-<link rel="icon" href="/favicon.png" />
+<link rel="icon" href="favicon.png" />
 <style>
   :root {
     --ground: #2A2A2A;
@@ -156,15 +156,33 @@
 
   .credit {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    gap: 9px;
     padding: 0 24px 36px;
     font-family: var(--sans);
     font-size: 0.82rem;
     letter-spacing: 0.03em;
     color: var(--muted);
   }
+  .credit-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .proj-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+  .proj-link:hover,
+  .proj-link:focus-visible { color: var(--ink); outline: none; }
+  .proj-favicon { width: 14px; height: 14px; border-radius: 3px; display: block; }
   .credit .links {
     display: inline-flex;
     align-items: center;
@@ -234,6 +252,7 @@
 </main>
 
 <footer class="credit">
+  <div class="credit-row">
   <span>Creator: Sonny Gast</span>
   <span class="links">
     <a href="https://x.com/idiosyncrisis" target="_blank" rel="noopener noreferrer" aria-label="Sonny Gast on X">
@@ -257,4 +276,12 @@
       </svg>
     </a>
   </span>
+  </div>
+  <div class="credit-row">
+    <span>Other projects:</span>
+    <a class="proj-link" href="https://libgrafy.com/" target="_blank" rel="noopener noreferrer">
+      <img class="proj-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABp0lEQVR4nO2XP0gCYRjG368hkoo7hApaKmhMdGrUsQYHm8rNhiaHciyIjKAttLmhWoqWkHAJamispZPWolyCLOyEsjLxer5DrSOLu0PvFPzB8/6Z3p+Ch8foB4qiiGjzSADxIPVEQhLIJmNMRlepCuB4iIhiiIg0EhmJQGKHgCpQPr6NWMksgwTDcRHLLcK7lcjICBeIEtEKYgerXOASgwexA4kLKBhso6ZAIXNNuYt9Kr1msemno9tJwniQOvtHsemjpsBjcs3w8Qpcos+/jEkfNQUeDiKo5hmYjqHqoy3QWgJPb06SMi7KFx3Y9NMrOMjrH6PBISc2LYYETtI+w8crcImZsBeTFkMCRzeTqOaZW5pA1dKcApnDRVI+3zFpsUxAfRSf71Ep/4ztG8sE/mJr/RjVPG2B1hfY3TilwkcRk3F6hC4Khn2YtBgSuE9n6Sx5RS+53z/R/+DHfX6X/kexlXABCd2N2EGKC0TJ5r/lIoY7IhIQK8khw3a+mk0xxhKqAKcsEUca/U3wTx7ix9GpKsCBhIi2gAQQN1JPUkgCieO4jK7yBd1g837bdJ2rAAAAAElFTkSuQmCC" alt="" width="14" height="14" />libgrafy
+    </a>
+    <span class="proj-note">(language learning)</span>
+  </div>
 </footer>
