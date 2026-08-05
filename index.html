@@ -1,0 +1,260 @@
+<title>Blank — Download</title>
+<link rel="icon" href="/favicon.png" />
+<style>
+  :root {
+    --ground: #2A2A2A;
+    --ink: #F2F2F2;
+    --muted: #9A9A9A;
+    --hairline: #474747;
+    --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --serif: "Times New Roman", Times, "Liberation Serif", "Nimbus Roman", serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--serif);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  /* Centered stage */
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 38px;
+    padding: 48px 24px;
+  }
+
+  /* Manifesto — lines left-aligned, block centered on the page */
+  .manifesto {
+    font-size: clamp(0.95rem, 0.82rem + 0.72vw, 1.28rem);
+    line-height: 1.72;
+    letter-spacing: 0.005em;
+    text-align: left;
+    margin: 0;
+  }
+  .manifesto p { margin: 0; }
+  .manifesto p + p { margin-top: 1.72em; } /* the stanza break */
+
+  .manifesto .line { display: block; }
+
+  /* Specs — a quiet click-to-open disclosure */
+  .specs-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    width: 100%;
+  }
+  .specs-toggle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    margin: -1px;
+  }
+  .specs-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 2px;
+    transition: color 0.16s ease;
+  }
+  .specs-label:hover { color: var(--ink); }
+  .specs-section:focus-within .specs-label { color: var(--ink); }
+
+  .spec-intro {
+    display: none; /* revealed with the specs */
+    margin: 0;
+    max-width: 560px;
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: #fff;
+  }
+  .specs-toggle:checked ~ .spec-intro { display: block; }
+
+  .spec {
+    margin: 0;
+    display: none; /* hidden until Specs is clicked */
+    gap: 10px 0;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    max-width: 560px;
+  }
+  .specs-toggle:checked ~ .spec { display: grid; }
+  .spec > div {
+    display: grid;
+    grid-template-columns: 118px 1fr;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .spec dt { color: var(--muted); }
+  .spec dd { margin: 0; color: var(--ink); }
+  @media (max-width: 480px) {
+    .spec > div { grid-template-columns: 1fr; gap: 2px; }
+  }
+
+  /* Downloads */
+  .downloads {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+  .dl {
+    appearance: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 138px;
+    padding: 13px 20px 11px;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--hairline);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  }
+  .dl:hover,
+  .dl:focus-visible {
+    background: var(--ink);
+    color: var(--ground);
+    border-color: var(--ink);
+    outline: none;
+  }
+  .dl .os {
+    font-family: var(--serif);
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+  }
+  .dl .ext {
+    font-family: var(--sans);
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: inherit;
+    opacity: 0.5;
+  }
+
+  .credit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px 36px;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+  }
+  .credit .links {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+  }
+  .credit a {
+    display: inline-flex;
+    color: var(--muted);
+    transition: color 0.18s ease;
+  }
+  .credit a:hover,
+  .credit a:focus-visible { color: var(--ink); outline: none; }
+  .credit svg { width: 15px; height: 15px; display: block; }
+
+</style>
+
+<main>
+  <div class="manifesto">
+    <p>
+      <span class="line">I don&rsquo;t want distraction.</span>
+      <span class="line">I don&rsquo;t want more features.</span>
+    </p>
+    <p>
+      <span class="line l3">I want simplicity.</span>
+      <span class="line l4">I want focus.</span>
+      <span class="line l5">I want to write.</span>
+    </p>
+  </div>
+
+  <div class="downloads">
+    <a class="dl" href="https://github.com/xinlingo/blank/releases/download/v0.1.0/Blank-macOS.zip">
+      <span class="os">macOS</span>
+      <span class="ext">.zip</span>
+    </a>
+    <a class="dl" href="https://github.com/xinlingo/blank/releases/download/v0.1.0/Blank-linux.tar.gz">
+      <span class="os">Linux</span>
+      <span class="ext">.tar.gz</span>
+    </a>
+    <a class="dl" href="https://github.com/xinlingo/blank/releases/download/v0.1.0/Blank-windows.zip">
+      <span class="os">Windows</span>
+      <span class="ext">.zip</span>
+    </a>
+  </div>
+
+  <div class="specs-section">
+    <input type="checkbox" id="specs-toggle" class="specs-toggle">
+    <label class="specs-label" for="specs-toggle" tabindex="0">Specs</label>
+    <p class="spec-intro">Blank is a lean word processor set with the most essential features and nothing else.</p>
+    <dl class="spec">
+          <div><dt>File size</dt><dd>~122 MB (macOS)</dd></div>
+          <div><dt>Pages</dt><dd>US Letter, numbered, real page breaks</dd></div>
+          <div><dt>Default font</dt><dd>Times New Roman, 12pt</dd></div>
+          <div><dt>Fonts</dt><dd>Times New Roman, Arial, Helvetica, Georgia, Verdana, Courier New, Palatino, Baskerville, Optima</dd></div>
+          <div><dt>Font size</dt><dd>8 to 72</dd></div>
+          <div><dt>Styling</dt><dd>bold, italic, underline</dd></div>
+          <div><dt>Line spacing</dt><dd>1.0, 1.5, 2.0</dd></div>
+          <div><dt>Margins</dt><dd>narrow, normal, wide</dd></div>
+          <div><dt>Find</dt><dd>search the text, jump to each match by page</dd></div>
+          <div><dt>Documents</dt><dd>many at once, auto-saved, rename, reorder, search, delete</dd></div>
+          <div><dt>Save as</dt><dd>.docx .pdf .epub .rtf .txt .html .json</dd></div>
+          <div><dt>Open</dt><dd>.docx .rtf .txt .html .json</dd></div>
+          <div><dt>Display</dt><dd>light and dark, plus a warm mode for the eyes</dd></div>
+          <div><dt>Toolbar</dt><dd>hidden until you reach for it near the top</dd></div>
+          <div><dt>Paste</dt><dd>comes in as plain text, takes the page's formatting</dd></div>
+    </dl>
+  </div>
+</main>
+
+<footer class="credit">
+  <span>Creator: Sonny Gast</span>
+  <span class="links">
+    <a href="https://x.com/idiosyncrisis" target="_blank" rel="noopener noreferrer" aria-label="Sonny Gast on X">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/>
+      </svg>
+    </a>
+    <a href="https://www.youtube.com/@sonnygast" target="_blank" rel="noopener noreferrer" aria-label="Sonny Gast on YouTube">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814ZM9.545 15.568V8.432L15.818 12l-6.273 3.568Z"/>
+      </svg>
+    </a>
+    <a href="https://www.amazon.com/Perspectives-Sonny-Gast-ebook/dp/B0BK2QTRPK?sr=8-1" target="_blank" rel="noopener noreferrer" aria-label="Perspectives — a book by Sonny Gast on Amazon">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.617 17.617 0 01-10.951-.577 17.88 17.88 0 01-5.43-3.35c-.1-.074-.151-.15-.151-.22 0-.047.021-.09.051-.13zm6.565-6.218c0-1.005.247-1.863.743-2.577.495-.71 1.17-1.25 2.04-1.615.796-.335 1.756-.575 2.912-.72.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46-.35.27-.575.63-.675 1.096-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39 0-.046.007-.09.022-.15.247-1.29.855-2.25 1.82-2.88.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29.135.15.27.3.405.48.12.165.224.314.283.45.075.134.15.33.195.57.06.254.105.42.135.51.03.104.062.3.076.615.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036.105.313.21.54.315.674l.51.674c.09.136.136.256.136.36 0 .12-.06.226-.18.314-1.2 1.05-1.86 1.62-1.963 1.71-.165.135-.375.15-.63.045a6.062 6.062 0 01-.526-.496l-.31-.347a9.391 9.391 0 01-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665-.494.15-1.093.227-1.83.227-1.11 0-2.04-.343-2.76-1.034-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438c0 .566.14 1.02.425 1.364.285.34.675.512 1.155.512.045 0 .106-.007.195-.02.09-.016.134-.023.166-.023.614-.16 1.08-.553 1.424-1.178.165-.28.285-.58.36-.91.09-.32.12-.59.135-.8.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17.362-.243.714-.41 1.05-.5a8.094 8.094 0 011.612-.24c.14-.012.28 0 .41.03.65.06 1.05.168 1.172.33.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8-.278.69-.664 1.248-1.156 1.68-.073.06-.14.09-.197.09-.03 0-.06 0-.09-.012-.09-.044-.107-.12-.064-.24.54-1.26.806-2.143.806-2.64 0-.15-.03-.27-.087-.344-.145-.166-.55-.257-1.224-.257-.243 0-.533.016-.87.046-.363.045-.7.09-1 .135-.09 0-.148-.014-.18-.044-.03-.03-.036-.047-.02-.077 0-.017.006-.03.02-.063v-.06z"/>
+      </svg>
+    </a>
+    <a href="https://sonnygast.gumroad.com/" target="_blank" rel="noopener noreferrer" aria-label="Sonny Gast on Gumroad">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0Zm-.007 5.12c4.48 0 5.995 3.025 6.064 4.744h-3.239c-.069-.962-.897-2.406-2.896-2.406-2.136 0-3.514 1.857-3.514 4.126 0 2.27 1.378 4.125 3.514 4.125 1.93 0 2.758-1.512 3.103-3.025h-3.103v-1.238h6.509v6.327h-2.855v-3.989c-.207 1.444-1.102 4.264-4.617 4.264-3.516 0-5.584-2.82-5.584-6.326 0-3.645 2.276-6.602 6.618-6.602z"/>
+      </svg>
+    </a>
+  </span>
+</footer>
