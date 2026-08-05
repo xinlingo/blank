@@ -112,6 +112,24 @@
     color: #fff;
   }
 
+  .os-note {
+    max-width: 560px;
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .os-note p { margin: 0 0 8px; }
+  .os-note ul {
+    margin: 0;
+    padding-left: 1.1em;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .os-note b { color: var(--ink); font-weight: 700; }
+
   .spec {
     margin: 0;
     display: grid;
@@ -237,6 +255,14 @@
     <div class="specs-reveal">
       <div class="specs-reveal-inner">
     <p class="spec-intro"><strong>Blank</strong> is a lean word processor set with the most essential features and nothing else.</p>
+    <div class="os-note">
+      <p>Blank isn't code-signed yet, so the first time you open it your system may warn that it's from an unknown developer. It's safe — here's how to open it:</p>
+      <ul>
+        <li><b>macOS</b> — right-click the app, choose Open, then Open again.</li>
+        <li><b>Windows</b> — if you see "Windows protected your PC," click More info, then Run anyway.</li>
+        <li><b>Linux</b> — extract the archive, then run ./blank (add --no-sandbox if it complains).</li>
+      </ul>
+    </div>
     <dl class="spec">
           <div><dt>File size</dt><dd>~122 MB (macOS)</dd></div>
           <div><dt>Pages</dt><dd>US Letter, numbered, real page breaks</dd></div>
