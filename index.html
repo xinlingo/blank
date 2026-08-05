@@ -54,8 +54,32 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 22px;
+    gap: 0;
     width: 100%;
+  }
+  /* Animated disclosure: slides open/closed to its real height, with a fade. */
+  .specs-reveal {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.45s ease;
+  }
+  .specs-toggle:checked ~ .specs-reveal {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+  .specs-reveal-inner {
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding-top: 22px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .specs-reveal { transition: none; }
   }
   .specs-toggle {
     position: absolute;
@@ -78,7 +102,7 @@
   .specs-section:focus-within .specs-label { color: var(--ink); }
 
   .spec-intro {
-    display: none; /* revealed with the specs */
+    display: block;
     margin: 0;
     max-width: 560px;
     text-align: left;
@@ -87,18 +111,16 @@
     line-height: 1.55;
     color: #fff;
   }
-  .specs-toggle:checked ~ .spec-intro { display: block; }
 
   .spec {
     margin: 0;
-    display: none; /* hidden until Specs is clicked */
+    display: grid;
     gap: 10px 0;
     font-family: var(--mono);
     font-size: 0.78rem;
     line-height: 1.5;
     max-width: 560px;
   }
-  .specs-toggle:checked ~ .spec { display: grid; }
   .spec > div {
     display: grid;
     grid-template-columns: 118px 1fr;
@@ -212,6 +234,8 @@
   <div class="specs-section">
     <input type="checkbox" id="specs-toggle" class="specs-toggle">
     <label class="specs-label" for="specs-toggle" tabindex="0">Specs</label>
+    <div class="specs-reveal">
+      <div class="specs-reveal-inner">
     <p class="spec-intro">Blank is a lean word processor set with the most essential features and nothing else.</p>
     <dl class="spec">
           <div><dt>File size</dt><dd>~122 MB (macOS)</dd></div>
@@ -230,6 +254,8 @@
           <div><dt>Toolbar</dt><dd>hidden until you reach for it near the top</dd></div>
           <div><dt>Paste</dt><dd>comes in as plain text, takes the page's formatting</dd></div>
     </dl>
+      </div>
+    </div>
   </div>
 </main>
 
