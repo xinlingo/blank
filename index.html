@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Blank</title>
@@ -169,6 +172,15 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 14px;
+    order: 1; /* sit below the About disclosure, which moves above the boxes */
+  }
+  /* About + boxes grouped tightly, so About sits close above the boxes while the
+     manifesto keeps its wider 38px gap from the group. */
+  .pick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
   }
   .dl {
     appearance: none;
@@ -191,6 +203,13 @@
     color: var(--ground);
     border-color: var(--ink);
     outline: none;
+  }
+  .dl .os-icon {
+    width: 26px;
+    height: 26px;
+    display: block;
+    margin-bottom: 3px;
+    fill: currentColor;
   }
   .dl .os {
     font-family: var(--serif);
@@ -231,69 +250,158 @@
   .credit a:focus-visible { color: var(--ink); outline: none; }
   .credit svg { width: 15px; height: 15px; display: block; }
 
+  /* Carousel stage: each panel swipes in from the right, like turning a page. */
+  .stage {
+    width: min(90vw, 470px);
+    overflow: hidden;
+    transition: height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  .slides {
+    display: flex;
+    align-items: flex-start; /* panels sit at the top of the stage */
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  .slide { flex: 0 0 100%; min-width: 100%; }
+  /* The manifesto keeps its original centered block (lines left-aligned inside). */
+  .slide.manifesto { display: flex; justify-content: center; }
+  /* The Blank description: the only panel in Times New Roman, like the manifesto. */
+  /* Each panel below has its OWN independent styling. */
+
+  /* Blank description: Times New Roman. */
+  .slide.about {
+    font-family: var(--serif);
+    font-size: clamp(0.95rem, 0.82rem + 0.72vw, 1.28rem);
+    line-height: 1.62;
+    text-align: left;
+    color: var(--ink);
+  }
+  .slide.about p { margin: 0; }
+  .slide.about strong { font-weight: 700; }
+
+  /* Code-signed note: monospace, at its own size (0.82rem). */
+  .slide.note {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    text-align: left;
+    color: var(--ink);
+  }
+  .slide.note p { margin: 0 0 0.7em; }
+  .slide.note p:last-child { margin-bottom: 0; }
+  .slide.note b { font-weight: 700; }
+
+  /* Feature panels: monospace, small and tight so more fit per page. */
+  .slide.feat {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    line-height: 1.4;
+    text-align: left;
+    color: var(--ink);
+  }
+  .slide.feat p { margin: 0 0 0.28em; }
+  .slide.feat p:last-child { margin-bottom: 0; }
+  .slide.feat b { font-weight: 700; }
+  @media (prefers-reduced-motion: reduce) {
+    .stage, .slides { transition: none; }
+  }
+
+  .stage-btn {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px 6px;
+    min-width: 96px;      /* fixed size so the label swap never resizes it */
+    text-align: center;
+    transition: color 0.16s ease;
+  }
+  .stage-btn:hover, .stage-btn:focus-visible { color: var(--ink); outline: none; }
+
 </style>
+</head>
+<body>
 
 <main>
-  <div class="manifesto">
-    <p>
-      <span class="line">I don&rsquo;t want distraction.</span>
-      <span class="line">I don&rsquo;t want more features.</span>
-    </p>
-    <p>
-      <span class="line l3">I want simplicity.</span>
-      <span class="line l4">I want focus.</span>
-      <span class="line l5">I want to write.</span>
-    </p>
+  <div class="stage" id="stage">
+    <div class="slides" id="slides">
+
+      <div class="slide manifesto">
+        <div class="manifesto-inner">
+          <p>
+            <span class="line">I don&rsquo;t want distraction.</span>
+            <span class="line">I don&rsquo;t want more features.</span>
+          </p>
+          <p>
+            <span class="line">I want simplicity.</span>
+            <span class="line">I want focus.</span>
+            <span class="line">I want to write.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="slide about">
+        <p><strong>Blank</strong> is a lean word processor set with the most essential features and nothing else.</p>
+      </div>
+
+      <div class="slide note">
+        <p>Blank isn&rsquo;t code-signed yet, so the first time you open it your system may warn that it&rsquo;s from an unknown developer. It&rsquo;s safe, here&rsquo;s how to open it:</p>
+        <p><b>macOS</b>: right-click the app, choose Open, then Open again.</p>
+        <p><b>Windows</b>: if you see &ldquo;Windows protected your PC,&rdquo; click More info, then Run anyway.</p>
+        <p><b>Linux</b>: extract the archive, then run ./blank (add --no-sandbox if it complains).</p>
+      </div>
+
+      <div class="slide feat">
+        <p><b>Pages</b>: US Letter, numbered, with real page breaks.</p>
+        <p><b>Fonts</b>: Times New Roman and eight more, sizes 8 to 72.</p>
+        <p><b>Styling</b>: bold, italic, underline.</p>
+        <p><b>Alignment</b>: left, center, right, justified.</p>
+        <p><b>Lists</b>: bulleted and numbered, with indent in and out.</p>
+        <p><b>Line spacing</b>: 1.0, 1.5 or 2.0.</p>
+        <p><b>Margins</b>: narrow, normal or wide.</p>
+        <p><b>Zoom</b>: zoom the page in and out.</p>
+        <p><b>Paste</b>: arrives as plain text and takes the page&rsquo;s formatting.</p>
+        <p><b>Right-click</b>: undo, redo, cut, copy, paste, spelling suggestions.</p>
+      </div>
+
+      <div class="slide feat">
+        <p><b>Find</b>: whole-word search, jump to each match by page.</p>
+        <p><b>Replace</b>: hold a result to replace that one match.</p>
+        <p><b>Spell check</b>: scans the document, lists misspellings by page, fix or ignore.</p>
+        <p><b>Go to page</b>: jump straight to any page number.</p>
+        <p><b>Documents</b>: keep many at once in the app, auto-saved, rename, reorder, search, delete.</p>
+        <p><b>Save as</b>: .docx, PDF, EPUB, .rtf, .txt, .html, .json.</p>
+        <p><b>Open</b>: .docx, .rtf, .txt, .html, .json.</p>
+        <p><b>Display</b>: light and dark, plus a warm mode for the eyes.</p>
+        <p><b>Toolbar</b>: hidden until you reach for it near the top.</p>
+        <p><b>Auto-save</b>: your work is kept as you type.</p>
+      </div>
+
+    </div>
   </div>
 
+  <div class="pick">
+  <button class="stage-btn" id="stageBtn" type="button">About</button>
   <div class="downloads">
     <a class="dl" href="https://github.com/xinlingo/blank/releases/download/v0.1.1/Blank-macOS.zip">
+      <svg class="os-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
       <span class="os">macOS</span>
       <span class="ext">.zip</span>
     </a>
     <a class="dl" href="https://github.com/xinlingo/blank/releases/download/v0.1.1/Blank-linux.tar.gz">
+      <svg class="os-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.62 8.35c-.42.28-1.75 1.04-1.95 1.16-.37.23-.7.2-1.05-.03-.28-.19-1.5-.94-1.9-1.2-.44-.28-.4-.7.02-.95.65-.38 1.32-.72 1.97-1.1.35-.2.68-.18 1.03.03.63.38 1.27.74 1.9 1.12.42.25.42.68-.02.97zM12 0C6.9-.02 6.36 5.03 6.39 6.98c.02 1.34-.4 2.24-1.36 3.2-.87.87-1.63 1.86-2.05 3.06-.31.9-.4 1.5-.19 2.28-.4.3-.72.63-.98.98-.42.55-.62.98-.6 1.4.02.4.24.7.63.9.35.18.7.28 1.06.4.14.4.4.75.77 1 .5.32 1.1.42 1.68.32.5-.09.93-.35 1.24-.75.6.02 1.24-.24 2.27-.3.7-.05 1.56.26 2.57.2.04.13.1.25.18.37.4.6 1 .87 1.6.82.9-.07 1.7-.7 2.3-1.5.5-.6 1.3-.95 1.9-1.3.5-.3.8-.6.8-1.05.02-.4-.2-.8-.7-1.35-.16-.2-.24-.53-.33-.9-.08-.4-.18-.78-.5-1.02-.06-.06-.12-.08-.2-.14-.5-1.27-.3-2.55-.9-3.7-.53-1.4-1.46-2.63-2.17-3.47C15.6 9.65 15.2 8.9 15.2 7.5c.03-2.15.23-6.13-3.2-7.5zM12 3.4c.7 0 1.28.72 1.28 1.6S12.7 6.6 12 6.6s-1.28-.72-1.28-1.6S11.3 3.4 12 3.4z"/></svg>
       <span class="os">Linux</span>
       <span class="ext">.tar.gz</span>
     </a>
     <a class="dl" href="https://github.com/xinlingo/blank/releases/download/v0.1.1/Blank-windows.zip">
+      <svg class="os-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8.2v8.2H3zM12.8 3H21v8.2h-8.2zM3 12.8h8.2V21H3zM12.8 12.8H21V21h-8.2z"/></svg>
       <span class="os">Windows</span>
       <span class="ext">.zip</span>
     </a>
   </div>
-
-  <div class="specs-section">
-    <input type="checkbox" id="specs-toggle" class="specs-toggle">
-    <label class="specs-label" for="specs-toggle" tabindex="0">Specs</label>
-    <div class="specs-reveal">
-      <div class="specs-reveal-inner">
-    <p class="spec-intro"><strong>Blank</strong> is a lean word processor set with the most essential features and nothing else.</p>
-    <div class="os-note">
-      <p>Blank isn't code-signed yet, so the first time you open it your system may warn that it's from an unknown developer. It's safe, here's how to open it:</p>
-      <ul>
-        <li><b>macOS</b>: right-click the app, choose Open, then Open again.</li>
-        <li><b>Windows</b>: if you see "Windows protected your PC," click More info, then Run anyway.</li>
-        <li><b>Linux</b>: extract the archive, then run ./blank (add --no-sandbox if it complains).</li>
-      </ul>
-    </div>
-    <dl class="spec">
-          <div><dt>File size</dt><dd>macOS ~122 MB, Windows ~140 MB, Linux ~121 MB</dd></div>
-          <div><dt>Pages</dt><dd>US Letter, numbered, real page breaks</dd></div>
-          <div><dt>Default font</dt><dd>Times New Roman, 12pt</dd></div>
-          <div><dt>Fonts</dt><dd>Times New Roman, Arial, Helvetica, Georgia, Verdana, Courier New, Palatino, Baskerville, Optima</dd></div>
-          <div><dt>Font size</dt><dd>8 to 72</dd></div>
-          <div><dt>Styling</dt><dd>bold, italic, underline</dd></div>
-          <div><dt>Line spacing</dt><dd>1.0, 1.5, 2.0</dd></div>
-          <div><dt>Margins</dt><dd>narrow, normal, wide</dd></div>
-          <div><dt>Find</dt><dd>search the text, jump to each match by page</dd></div>
-          <div><dt>Documents</dt><dd>many at once, auto-saved, rename, reorder, search, delete</dd></div>
-          <div><dt>Save as</dt><dd>.docx .pdf .epub .rtf .txt .html .json</dd></div>
-          <div><dt>Open</dt><dd>.docx .rtf .txt .html .json</dd></div>
-          <div><dt>Display</dt><dd>light and dark, plus a warm mode for the eyes</dd></div>
-          <div><dt>Toolbar</dt><dd>hidden until you reach for it near the top</dd></div>
-          <div><dt>Paste</dt><dd>comes in as plain text, takes the page's formatting</dd></div>
-    </dl>
-      </div>
-    </div>
   </div>
 </main>
 
@@ -328,3 +436,45 @@
     </a>
   </span>
 </footer>
+
+<script>
+(function () {
+  var track = document.getElementById('slides');
+  var stage = document.getElementById('stage');
+  var btn = document.getElementById('stageBtn');
+  if (!track || !stage || !btn) return;
+  var slides = Array.prototype.slice.call(track.children);
+  var last = slides.length - 1;
+  var idx = 0;
+
+  function label(i) {
+    if (i === 0) return 'About';
+    if (i === last) return 'Back';
+    if (i === 2) return 'Features';
+    return 'Next';
+  }
+  // Lock the stage to the tallest panel so switching panels never moves the
+  // button or the boxes below it.
+  function fit() {
+    var max = 0;
+    for (var i = 0; i < slides.length; i++) {
+      if (slides[i].offsetHeight > max) max = slides[i].offsetHeight;
+    }
+    stage.style.height = max + 'px';
+  }
+  function render() {
+    track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+    btn.textContent = label(idx);
+  }
+  btn.addEventListener('click', function () {
+    idx = (idx === last) ? 0 : idx + 1;
+    render();
+  });
+  window.addEventListener('resize', fit);
+  window.addEventListener('load', fit);
+  fit();
+  render();
+})();
+</script>
+</body>
+</html>
